@@ -7,6 +7,21 @@ class AuthForm extends StatefulWidget {
 
 class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
+  var _isLogin = true;
+  var _userEmail = '';
+  var _userName = '';
+  var _userPassword = '';
+  void _trySubmit() {
+    final isValid = _formKey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+
+    if (isValid) {
+      _formKey.currentState!.save();
+      print(_userEmail);
+      print(_userName);
+      print(_userPassword);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +39,45 @@ class _AuthFormState extends State<AuthForm> {
               child: Column(
                 children: [
                   TextFormField(
+                    key: ValueKey('email'),
+                    validator: (value) {
+                      if (value!.isEmpty || !value.contains('@')) {
+                        return 'Please enter a valid email address.';
+                      }
+                      return null;
+                    },
+                    onSaved: (newValue) => _userEmail = newValue!,
                     keyboardType: TextInputType.emailAddress,
                     decoration:
                         const InputDecoration(labelText: 'Email address'),
                   ),
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'User Name'),
+                    key: ValueKey('userName'),
+                    validator: (value) {
+                      if (value!.isEmpty || value.length < 6) {
+                        return 'Please enter a user Name with atlest 6 charecters.';
+                      }
+                      return null;
+                    },
+                    onSaved: (newValue) => _userName = newValue!,
                   ),
                   TextFormField(
                     obscureText: true,
                     decoration: const InputDecoration(labelText: 'Password'),
+                    key: ValueKey('password'),
+                    validator: (value) {
+                      if (value!.isEmpty || value.length < 6) {
+                        return 'Please enter a Password with atlest 6 charecters.';
+                      }
+                      return null;
+                    },
+                    onSaved: (newValue) => _userPassword = newValue!,
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  ElevatedButton(onPressed: () {}, child: Text('Login')),
+                  ElevatedButton(onPressed: _trySubmit, child: Text('Login')),
                   TextButton(
                     onPressed: () {},
                     child: Text('Create A new Account'),
