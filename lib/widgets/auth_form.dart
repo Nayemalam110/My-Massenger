@@ -77,10 +77,18 @@ class _AuthFormState extends State<AuthForm> {
                   SizedBox(
                     height: 10,
                   ),
-                  ElevatedButton(onPressed: _trySubmit, child: Text('Login')),
+                  ElevatedButton(
+                      onPressed: _trySubmit,
+                      child: Text(_isLogin ? 'Login' : 'Sign up')),
                   TextButton(
-                    onPressed: () {},
-                    child: Text('Create A new Account'),
+                    onPressed: () {
+                      setState(() {
+                        _isLogin = !_isLogin;
+                      });
+                    },
+                    child: Text(_isLogin
+                        ? 'Create A new Account'
+                        : 'Already have an account'),
                   )
                 ],
               ),
