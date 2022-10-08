@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
+  AuthForm(this.submitAuthForm);
+
+  final void Function(
+    String email,
+    String password,
+    String userName,
+    bool isLogin,
+  ) submitAuthForm;
+
   @override
   State<AuthForm> createState() => _AuthFormState();
 }
@@ -17,9 +26,12 @@ class _AuthFormState extends State<AuthForm> {
 
     if (isValid) {
       _formKey.currentState!.save();
-      print(_userEmail);
-      print(_userName);
-      print(_userPassword);
+      widget.submitAuthForm(
+        _userEmail,
+        _userPassword,
+        _userName,
+        _isLogin,
+      );
     }
   }
 
@@ -51,17 +63,18 @@ class _AuthFormState extends State<AuthForm> {
                     decoration:
                         const InputDecoration(labelText: 'Email address'),
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'User Name'),
-                    key: ValueKey('userName'),
-                    validator: (value) {
-                      if (value!.isEmpty || value.length < 6) {
-                        return 'Please enter a user Name with atlest 6 charecters.';
-                      }
-                      return null;
-                    },
-                    onSaved: (newValue) => _userName = newValue!,
-                  ),
+                  if (_isLogin)
+                    TextFormField(
+                      decoration: const InputDecoration(labelText: 'User Name'),
+                      key: ValueKey('userName'),
+                      validator: (value) {
+                        if (value!.isEmpty || value.length < 6) {
+                          return 'Please enter a user Name with atlest 6 charecters.';
+                        }
+                        return null;
+                      },
+                      onSaved: (newValue) => _userName = newValue!,
+                    ),
                   TextFormField(
                     obscureText: true,
                     decoration: const InputDecoration(labelText: 'Password'),

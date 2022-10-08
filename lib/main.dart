@@ -4,8 +4,8 @@ import 'package:my_chat_app/screens/auth_screen.dart';
 import '../screens/chat_screen.dart';
 
 Future<void> main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   runApp(MyApp());
 }
