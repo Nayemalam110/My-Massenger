@@ -65,7 +65,7 @@ class _AuthFormState extends State<AuthForm> {
                     decoration:
                         const InputDecoration(labelText: 'Email address'),
                   ),
-                  if (_isLogin)
+                  if (!_isLogin)
                     TextFormField(
                       decoration: const InputDecoration(labelText: 'User Name'),
                       key: ValueKey('userName'),
