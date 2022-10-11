@@ -45,7 +45,8 @@ class _AuthScreenState extends State<AuthScreen> {
       }
       ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text(message!)));
     } catch (e) {
-      print(e);
+      ScaffoldMessenger.of(ctx)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
