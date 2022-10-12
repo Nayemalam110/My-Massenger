@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_chat_app/widgets/messages.dart';
 
 class ChatScreen extends StatelessWidget {
   TextEditingController _textEditingController = TextEditingController();
@@ -45,29 +46,10 @@ class ChatScreen extends StatelessWidget {
                 }))
           ],
         ),
-        body: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection('chats/3okFKLl8GKUe9SMHiY7i/massages')
-              .snapshots(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasError) {
-              return Text('Something went wrong');
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            var spdata = snapshot.data.docs;
-
-            return ListView.builder(
-              itemCount: spdata.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Center(child: Text(spdata[index]['text']));
-              },
-            );
-          },
+        body: Container(
+          child: Column(
+            children: [Expanded(child: Messages())],
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
