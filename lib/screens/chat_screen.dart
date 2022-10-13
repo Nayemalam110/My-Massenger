@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_chat_app/widgets/messages.dart';
+import 'package:my_chat_app/widgets/new_message.dart';
 
 class ChatScreen extends StatelessWidget {
   TextEditingController _textEditingController = TextEditingController();
@@ -48,30 +49,11 @@ class ChatScreen extends StatelessWidget {
         ),
         body: Container(
           child: Column(
-            children: [Expanded(child: Messages())],
+            children: [
+              Expanded(child: Messages()),
+              NewMessage(),
+            ],
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  title: Text('Add Massage'),
-                  content: TextField(
-                    controller: _textEditingController,
-                  ),
-                  actions: [
-                    TextButton(
-                        onPressed: () =>
-                            addData(_textEditingController.text, context),
-                        child: Text('Add'))
-                  ],
-                );
-              },
-            );
-          },
-          child: Icon(Icons.add),
         ));
   }
 }
