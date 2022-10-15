@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_chat_app/widgets/image_picker.dart';
 
 class AuthForm extends StatefulWidget {
   AuthForm(this.submitAuthForm);
@@ -52,6 +53,7 @@ class _AuthFormState extends State<AuthForm> {
               key: _formKey,
               child: Column(
                 children: [
+                  if (!_isLogin) ImagePickerClass(),
                   TextFormField(
                     key: ValueKey('email'),
                     validator: (value) {

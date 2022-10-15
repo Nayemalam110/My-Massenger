@@ -6,8 +6,9 @@ class MessageBubble extends StatelessWidget {
   final String message;
 
   final bool isMe;
+  final String userName;
 
-  MessageBubble(this.message, this.isMe);
+  MessageBubble(this.message, this.isMe, this.userName);
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +23,24 @@ class MessageBubble extends StatelessWidget {
           ),
           padding: EdgeInsets.all(8),
           margin: EdgeInsets.all(5),
-          child: Text(
-            message,
-            style: TextStyle(color: Colors.white),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                userName[0].toUpperCase() + userName.substring(1),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                message[0].toUpperCase() + message.substring(1),
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
           ),
         ),
       ],
