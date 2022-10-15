@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,6 +20,7 @@ class _AuthScreenState extends State<AuthScreen> {
     String email,
     String password,
     String userName,
+    File? userImageFile,
     bool isLogin,
     BuildContext ctx,
   ) async {
@@ -29,6 +32,13 @@ class _AuthScreenState extends State<AuthScreen> {
       } else {
         userCredential = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
+
+        final refer = FirebaseStorage.instance
+            .ref()
+            .child('user_image')
+            .child(userCredential.user!.uid + '.jpg');
+        await refer.putFile(userImageFile!);
+
         await FirebaseFirestore.instance
             .collection('users')
             .doc(userCredential.user!.uid)
