@@ -14,6 +14,7 @@ class MessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
+      clipBehavior: Clip.none,
       children: [
         Row(
           mainAxisAlignment:
@@ -25,26 +26,26 @@ class MessageBubble extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.purple,
               ),
-              padding: EdgeInsets.all(8),
-              margin: EdgeInsets.all(5),
+              padding: const EdgeInsets.all(8),
+              margin: const EdgeInsets.all(5),
               child: Column(
                 crossAxisAlignment:
                     isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                 children: [
                   Text(
                     userName[0].toUpperCase() + userName.substring(1),
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w400),
                     textAlign: isMe ? TextAlign.end : TextAlign.start,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Text(
                     message[0].toUpperCase() + message.substring(1),
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                     textAlign: isMe ? TextAlign.end : TextAlign.start,
                   ),
                 ],
@@ -60,7 +61,6 @@ class MessageBubble extends StatelessWidget {
               backgroundImage: NetworkImage(image_url),
             ))
       ],
-      clipBehavior: Clip.none,
     );
   }
 }
